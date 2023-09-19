@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Gerente</title>
+</head>
+<body>
+    <!-- Quartos
+    Funcionarios
+    Tarefas -->
+    <h1>Atividades</h1>
+    <table border="1">
+        <tr>
+            <td>Atividade</td>
+            <td>Data de Criação</td>
+            <td>Estado</td>
+        </tr>
+
+        {% for atividade in tarefa %}
+
+        <tr>
+            <td>{{atividade.tarefa}}</td>
+            <td>{{atividade.data}}</td>
+            <td>{{atividade.estado}}</td>
+        </tr>
+
+        {% endfor %}
+
+
+    </table>
+
+    <br><br>
+
+    {% if form %}
+        
+        <form method="POST">
+        {{form.tarefa.label()}}
+        {{form.tarefa()}}
+
+        {{form.botao_confirmacao()}}
+        </form>
+
+    {% endif %}
+
+
+</body>
+</html>

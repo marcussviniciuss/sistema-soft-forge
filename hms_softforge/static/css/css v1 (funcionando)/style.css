@@ -1,0 +1,118 @@
+
+/*gradiente do fundo do corpo da página*/
+body{
+    background-image: linear-gradient(45deg, rgb(0, 166, 255), rgb(226, 89, 242));
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+footer{
+    margin-top: -4.5%;
+    color: white;
+    margin-left: 45%;
+    font-size: 18px;
+    
+}
+
+/*login - centraliza o conteúdo*/
+.containe{
+    width: 100%;
+    margin: auto;
+}
+
+/* todo conteudo de login se mantém no centro da pág*/
+.container-login{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+/*mantém o tamanho padrão do formulário e da caixa de login*/
+.style-form-login{
+   background-color: rgba(0, 0, 0, 0.405);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding:80px;
+    border-radius: 25px;
+
+}
+
+/*título da página*/
+.form-login-tittle{
+    color: rgb(255, 255, 255);
+    font-family:cursive;
+    font-size: 45px;
+}
+
+/*campos de intput*/
+.form-login-input{
+    width: 100%;
+    position: relative;
+}
+
+.form-input{
+    font-size: 15px;
+    font-family:Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 30px;
+    background: rgb(253, 253, 253);
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+
+
+.focus-input-form::before{
+    font-family:cursive;
+    font-size: 16px;
+    line-height: 1.1;
+    content: attr(placeholder);
+    color: rgb(255, 255, 255);
+}
+
+/*centraliza o botão*/
+.container-form-buttom{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+/**/
+.form-login-btn{
+    font-family: cursive;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(0, 128, 255);
+    border-radius: 20px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: none;
+}
+
+.form-login-btn:hover{
+    background-color: rgba(232, 58, 255, 0.476);
+}
+
+.img-left{
+    margin-left: 670px;
+    margin-top: 13%;
+}
+
+.img-height{
+    margin-right: 670px;
+    margin-top: -65%;
+}

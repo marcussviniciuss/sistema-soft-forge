@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %} HMS - Softforge {% endblock %}</title>
+<link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+{% block body %}
+<body>
+    <div class="container"><!--vai conter todo o conteúdo da pagina-->
+
+        <div class="container-login"> <!--estilo da página de longin-->
+        
+            <div class="style-form-login"><!--estilo relacionado ao fotmulário de login-->
+
+                {% block form %}
+                <form method="POST" class="form-login" me><!--formulário que o usuário poderá fazer o login-->
+                    {{ form.csrf_token }}
+
+                    <span class="form-login-tittle"><!--titulo da página de login-->
+                        Faça o login
+                    </span>
+
+                    <br><br>
+
+                    <div class="form-login-input"><!--divisão dos campos de login (nome)-->
+                        {{form.email.label(class="focus-input-form")}}
+                        {{form.email(class="form-input")}}
+                    </div>
+
+                    <br>
+
+                    <div class="form-login-input"><!--divisão dos campos de login (senha)-->
+                        {{form.senha.label(class="focus-input-form")}}
+                        {{form.senha(class="form-input")}}
+                    </div>
+                    <br>
+
+                    <div class="container-form-buttom">
+                        {{form.botao_confirmacao(class="form-login-btn")}}
+                    </div>
+
+                </form>
+                {% endblock %}
+
+            </div>
+
+            <img src="../static/imagens/Computer login-bro.png" alt="Login" width="400"
+            height="400" class="img-left"/>
+            <img src="../static/imagens/Login-amico.png" alt="Login" width="400"
+            height="400" class="img-height"/>
+        </div>
+    </div>
+    <footer> &reg; by SoftForge-2023 </footer>    
+</body>
+{% endblock %}
+</html>
