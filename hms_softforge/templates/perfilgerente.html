@@ -14,21 +14,26 @@
         <tr>
             <td>Atividade</td>
             <td>Data de Criação</td>
-            <td>Estado</td>
+            <td>estado</td>
+            <td>Ação</td>
         </tr>
-
+    
         {% for atividade in tarefa %}
-
         <tr>
             <td>{{atividade.tarefa}}</td>
             <td>{{atividade.data}}</td>
-            <td>{{atividade.estado}}</td>
+            <td>{{'Realizada' if atividade.estado else 'Pendente'}}</td>
+            <td>
+                {% if atividade.estado %}
+                    <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=0) }}">Trocar status</a>
+                {% else %}
+                    <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=1) }}">Trocar status</a>
+                {% endif %}
+            </td>
         </tr>
-
         {% endfor %}
-
-
     </table>
+    
 
     <br><br>
 

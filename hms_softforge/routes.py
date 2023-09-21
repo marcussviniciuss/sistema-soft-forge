@@ -74,3 +74,16 @@ def logout():
 @login_required
 def telaHome():
     return render_template("telaHome.html")
+
+@app.route("/mudar_estado/<int:tarefa_id>/<int:novo_estado>")
+@login_required
+def mudar_estado(tarefa_id, novo_estado):
+    tarefa = Tarefa.query.get_or_404(tarefa_id)
+
+    if current_user.cargo != "gerente":
+        return redirect(url_for("perfilgerente"))
+
+    tarefa.estado = bool(novo_estado)
+    database.session.commit()
+
+    return redirect(url_for("perfilgerente"))
