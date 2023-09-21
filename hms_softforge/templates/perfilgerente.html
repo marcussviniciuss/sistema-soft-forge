@@ -12,7 +12,7 @@
     <h1>Atividades</h1>
     <table border="1">
         <tr>
-            <td>Atividade</td>
+            <td>Tarefa</td>
             <td>Data de Criação</td>
             <td>Estado</td>
             <td>Data de Conclusão</td>
@@ -25,7 +25,7 @@
             <td>{{atividade.tarefa}}</td>
             <td>{{atividade.data.strftime('%d-%m-%Y - %H:%M:%S')}}</td>
             <td>{{'Concluída' if atividade.estado else 'Pendente'}}</td>
-            <td>{{ atividade.realizada_em.strftime("%d-%m-%Y - %H:%M:%S") if atividade.realizada_em else '-' }}</td>
+            <td>{{atividade.realizada_em.strftime("%d-%m-%Y - %H:%M:%S") if atividade.realizada_em else '-'}}</td>
             <td>{{atividade.concluido_por if atividade.realizada_em else '-'}}</td>
             <td>
                 {% if atividade.estado %}
@@ -40,15 +40,13 @@
 
     <br><br>
 
-    {% if form %}
-        
+    {% if form %} 
         <form method="POST">
         {{form.tarefa.label()}}
         {{form.tarefa()}}
 
         {{form.botao_confirmacao()}}
         </form>
-
     {% endif %}
 
 
