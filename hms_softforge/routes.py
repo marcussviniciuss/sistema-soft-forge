@@ -3,6 +3,7 @@ from hms_softforge import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
 from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa
 from hms_softforge.models import Usuario, Tarefa
+from datetime import datetime
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -83,7 +84,10 @@ def mudar_estado(tarefa_id, novo_estado):
     if current_user.cargo != "gerente":
         return redirect(url_for("perfilgerente"))
 
-    tarefa.estado = bool(novo_estado)
-    database.session.commit()
+    if not tarefa.estado:
+        tarefa.estado = bool(novo_estado)
+        tarefa.concluido_por = current_user.username
+        tarefa.realizada_em = datetime.now()
+        database.session.commit()
 
     return redirect(url_for("perfilgerente"))

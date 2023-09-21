@@ -19,3 +19,7 @@ class Tarefa(database.Model):
     tarefa = database.Column(database.String, nullable=False)
     data = database.Column(database.Date, nullable=False, default=datetime.utcnow())
     estado = database.Column(database.Boolean, nullable=False, default=False)
+    concluido_por = database.Column(database.String, nullable=True) 
+    realizada_em = database.Column(database.Date, nullable=True)    
+    
+    
