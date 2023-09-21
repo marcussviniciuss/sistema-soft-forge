@@ -87,7 +87,7 @@ def mudar_estado(tarefa_id, novo_estado):
     if not tarefa.estado:
         tarefa.estado = bool(novo_estado)
         tarefa.concluido_por = current_user.username
-        tarefa.realizada_em = datetime.now()
+        tarefa.realizada_em = datetime.utcnow()
         database.session.commit()
 
     return redirect(url_for("perfilgerente"))
