@@ -17,9 +17,8 @@ class Usuario(database.Model, UserMixin):
 class Tarefa(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     tarefa = database.Column(database.String, nullable=False)
-    data = database.Column(database.Date, nullable=False, default=datetime.utcnow())
+    data = database.Column(database.DateTime, nullable=False, default=lambda: datetime.now())
     estado = database.Column(database.Boolean, nullable=False, default=False)
     concluido_por = database.Column(database.String, nullable=True) 
-    realizada_em = database.Column(database.Date, nullable=True)    
-    
+    realizada_em = database.Column(database.DateTime, nullable=True)    
     
