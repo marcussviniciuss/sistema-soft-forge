@@ -91,3 +91,7 @@ def mudar_estado(tarefa_id, novo_estado):
         database.session.commit()
 
     return redirect(url_for("perfilgerente"))
+
+@app.errorhandler(404)
+def notFound(error):
+    return render_template('404.html')
