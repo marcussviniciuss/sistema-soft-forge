@@ -3,3 +3,6 @@ from hms_softforge.models import Usuario, Tarefa
 
 with app.app_context():
     database.create_all()
+
+
+#C:\Users\mavin\OneDrive\Documents\GitHub\ProjetoSoftForge\instance

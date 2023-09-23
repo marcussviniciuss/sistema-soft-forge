@@ -1,9 +1,10 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, request
 from hms_softforge import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
 from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa
 from hms_softforge.models import Usuario, Tarefa
 from datetime import datetime
+from sqlalchemy import or_
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -55,10 +56,31 @@ def perfilgerente():
     else:
         return render_template("perfilgerente.html", form=None, tarefa=tarefa)
 
-@app.route("/perfilatendente")
+
+
+@app.route("/perfilatendente", methods=["GET", "POST"])
 @login_required
 def perfilatendente():
-    return render_template("perfilatendente.html")
+    # consulta para obter todos os usuários
+    usuarios = Usuario.query.all()
+
+    # filtros
+    filtro_cargo = request.form.get("filtro_cargo")
+    termo_pesquisa = request.form.get("termo_pesquisa")
+
+    # aplicar filtro por cargo
+    if filtro_cargo:
+        usuarios = Usuario.query.filter_by(cargo=filtro_cargo).all()
+
+    # aplicar pesquisa por nome ee emial
+    if termo_pesquisa:
+        termo_pesquisa = f"%{termo_pesquisa}%"
+        usuarios = Usuario.query.filter(
+            or_(Usuario.username.like(termo_pesquisa), Usuario.email.like(termo_pesquisa))
+        ).all()
+
+    return render_template("perfilatendente.html", usuarios=usuarios)
+
 
 @app.route("/perfilfuncionario")
 @login_required

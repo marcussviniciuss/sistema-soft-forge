@@ -6,17 +6,36 @@
     <title>Perfil - Atendente</title>
 </head>
 <body>
-    <h1>Funcionarios</h1>
+    <h1>Funcionários</h1>
+    
+    <form method="POST">
+        <label for="filtro_cargo">Filtrar por cargo:</label>
+        <select name="filtro_cargo" id="filtro_cargo">
+            <option value="">Todos</option>
+            <option value="gerente">Gerente</option>
+            <option value="atendente">Atendente</option>
+            <option value="funcionario">Funcionário</option>
+        </select>
+        
+        <label for="termo_pesquisa">Pesquisar por nome ou email:</label>
+        <input type="text" name="termo_pesquisa" id="termo_pesquisa">
+        <button type="submit">Pesquisar</button>
+    </form>
+
     <table border="1">
         <tr>
-            <td>Usuario</td>
+            <td>Usuário</td>
             <td>Email</td>
             <td>Cargo</td>
         </tr>
 
+        {% for usuario in usuarios %}
         <tr>
-            
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.cargo }}</td>
         </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
