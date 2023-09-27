@@ -117,3 +117,7 @@ def mudar_estado(tarefa_id, novo_estado):
 @app.errorhandler(404)
 def notFound(error):
     return render_template('404.html')
+
+@app.errorhandler(401)
+def unauthorized(error):
+    return render_template('401.html')

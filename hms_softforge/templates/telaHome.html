@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="../static/css/styleHome.css">
+    <link rel="shortcut icon" href="../static/imagens/soft_forge_logo" type="image/x-icon">
 </head>
     
 <body>
@@ -14,13 +15,13 @@
             <h1 class="title-h1">Bem-vindo a Home</h1>
         </div>
         <div class="sair">
-            logout
+            <a href="{{ url_for('logout') }}">logout</a>
         </div>
     </div>
     <div class="head">         
         <div class="head-card">
            <h1>Tarefas</h1>
-           <a class="btn-a">acessar</a>
+           <a class="btn-a" href="/perfilgerente">acessar</a>
         </div>
         <div class="head-card">
             <h1>Reservas</h1>
@@ -28,7 +29,7 @@
         </div>
         <div class="head-card">
             <h1>Funcinários</h1>
-            <a class="btn-a">acessar</a>
+            <a class="btn-a" href="/perfilatendente">acessar</a>
         </div>          
     </div>
     <div class="rodape">
