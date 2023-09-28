@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlalchemy import or_
 
 @app.route("/", methods=["GET", "POST"])
-def homepage():
+def login():
     formlogin = FormLogin()
     if formlogin.validate_on_submit():
         usuario = Usuario.query.filter_by(email=formlogin.email.data).first()
@@ -19,7 +19,7 @@ def homepage():
                 return redirect(url_for("telaHome"))
             if usuario.cargo == "funcionario":
                 return redirect(url_for("telaHome"))
-    return render_template("homepage.html", form=formlogin)
+    return render_template("login.html", form=formlogin)
 
 @app.route("/criarconta", methods=["GET", "POST"])
 def criarconta():
@@ -33,7 +33,7 @@ def criarconta():
         database.session.add(usuario)
         database.session.commit()
         login_user(usuario, remember=True)
-        return redirect(url_for("homepage"))
+        return redirect(url_for("login"))
     return render_template("criarconta.html", form=formcriarconta)
 
 # @app.route("/perfil/<usuario>")
@@ -88,7 +88,7 @@ def perfilfuncionario():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("homepage"))
+    return redirect(url_for("login"))
 
 @app.route("/telaHome")
 @login_required
