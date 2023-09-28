@@ -96,7 +96,8 @@ def logout():
 @app.route("/telaHome")
 @login_required
 def telaHome():
-    return render_template("telaHome.html")
+    return render_template('telaHome.html')
+
 
 @app.route("/mudar_estado/<int:tarefa_id>/<int:novo_estado>")
 @login_required
