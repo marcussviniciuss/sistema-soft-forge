@@ -18,6 +18,7 @@
             <td>Estado</td>
             <td>Data de Conclusão</td>
             <td>Concluída por</td>
+            <td>Status</td>
             <td>Ação</td>
         </tr>
     
@@ -34,6 +35,9 @@
                 {% else %}
                     <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=1) }}">❌</a>
                 {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('excluir_tarefa', tarefa_id=atividade.id) }}">Excluir</a>
             </td>
         </tr>
         {% endfor %}
