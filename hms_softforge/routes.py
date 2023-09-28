@@ -43,9 +43,9 @@ def criarconta():
 
 @app.route("/tarefas", methods=["GET", "POST"])
 @login_required
-def perfilgerente():
+def tarefas():
     tarefa = Tarefa.query.order_by(Tarefa.id).all()
-    if current_user.cargo == "gerente":
+    if current_user.cargo != "funcionario":
         form = FormNovaTarefa()
         if form.is_submitted():
             nova_tarefa = Tarefa(tarefa=form.tarefa.data)
@@ -58,7 +58,7 @@ def perfilgerente():
 
 @app.route("/funcionarios", methods=["GET", "POST"])
 @login_required
-def perfilatendente():
+def funcionarios():
     # consulta para obter todos os usuários
     usuarios = Usuario.query.all()
 
@@ -79,10 +79,10 @@ def perfilatendente():
 
     return render_template("funcionarios.html", usuarios=usuarios)
 
-@app.route("/perfilfuncionario")
+@app.route("/reservas", methods=["GET", "POST"])
 @login_required
-def perfilfuncionario():
-    return render_template('telaHome.html')
+def reservas():
+    return render_template("reservas.html")
     
 @app.route("/logout")
 @login_required
@@ -99,17 +99,13 @@ def telaHome():
 @login_required
 def mudar_estado(tarefa_id, novo_estado):
     tarefa = Tarefa.query.get_or_404(tarefa_id)
-
-    if current_user.cargo != "gerente":
-        return redirect(url_for("perfilgerente"))
-
+    
     if not tarefa.estado:
         tarefa.estado = bool(novo_estado)
         tarefa.concluido_por = current_user.username
         tarefa.realizada_em = datetime.now()
         database.session.commit()
-
-    return redirect(url_for("perfilgerente"))
+    return redirect(url_for("tarefas"))
 
 @app.errorhandler(404)
 def notFound(error):
