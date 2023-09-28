@@ -34,7 +34,6 @@ def criarconta():
                             cargo = formcriarconta.cargo.data)
             database.session.add(usuario)
             database.session.commit()
-            login_user(usuario, remember=True)
             return redirect(url_for("telaHome"))
     return render_template("criarconta.html", form=formcriarconta)
 
