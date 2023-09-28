@@ -22,18 +22,20 @@ def login():
     return render_template("login.html", form=formlogin)
 
 @app.route("/criarconta", methods=["GET", "POST"])
+@login_required
 def criarconta():
-    formcriarconta = FormCriarConta()
-    if formcriarconta.validate_on_submit():
-        senha = bcrypt.generate_password_hash(formcriarconta.senha.data)
-        usuario = Usuario(username= formcriarconta.username.data,
-                          senha=senha,
-                          email=formcriarconta.email.data,
-                          cargo = formcriarconta.cargo.data)
-        database.session.add(usuario)
-        database.session.commit()
-        login_user(usuario, remember=True)
-        return redirect(url_for("login"))
+    if current_user.cargo == "gerente":
+        formcriarconta = FormCriarConta()
+        if formcriarconta.validate_on_submit():
+            senha = bcrypt.generate_password_hash(formcriarconta.senha.data)
+            usuario = Usuario(username= formcriarconta.username.data,
+                            senha=senha,
+                            email=formcriarconta.email.data,
+                            cargo = formcriarconta.cargo.data)
+            database.session.add(usuario)
+            database.session.commit()
+            login_user(usuario, remember=True)
+            return redirect(url_for("telaHome"))
     return render_template("criarconta.html", form=formcriarconta)
 
 # @app.route("/perfil/<usuario>")
