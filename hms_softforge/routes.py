@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, request
+from flask import render_template, url_for, redirect, request, flash
 from hms_softforge import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
 from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa
@@ -108,6 +108,16 @@ def mudar_estado(tarefa_id, novo_estado):
         tarefa.realizada_em = datetime.now()
         database.session.commit()
     return redirect(url_for("tarefas"))
+
+@app.route("/excluir_tarefa/<int:tarefa_id>")
+@login_required
+def excluir_tarefa(tarefa_id):
+    tarefa = Tarefa.query.get_or_404(tarefa_id)
+    
+    if current_user.cargo == "gerente":
+        database.session.delete(tarefa)
+        database.session.commit()
+    return redirect(url_for('tarefas'))
 
 @app.errorhandler(404)
 def notFound(error):
