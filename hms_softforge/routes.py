@@ -14,11 +14,11 @@ def homepage():
         if usuario and bcrypt.check_password_hash(usuario.senha, formlogin.senha.data):
             login_user(usuario)
             if usuario.cargo == "gerente":
-                return redirect(url_for("perfilgerente"))
+                return redirect(url_for("telaHome"))
             if usuario.cargo == "atendente":
-                return redirect(url_for("perfilatendente"))
+                return redirect(url_for("telaHome"))
             if usuario.cargo == "funcionario":
-                return redirect(url_for("perfilfuncionario"))
+                return redirect(url_for("telaHome"))
     return render_template("homepage.html", form=formlogin)
 
 @app.route("/criarconta", methods=["GET", "POST"])
@@ -41,7 +41,7 @@ def criarconta():
 # def perfil(usuario):
 #     return render_template("perfil.html", usuario=usuario)
 
-@app.route("/perfilgerente", methods=["GET", "POST"])
+@app.route("/tarefas", methods=["GET", "POST"])
 @login_required
 def perfilgerente():
     tarefa = Tarefa.query.order_by(Tarefa.id).all()
@@ -51,14 +51,12 @@ def perfilgerente():
             nova_tarefa = Tarefa(tarefa=form.tarefa.data)
             database.session.add(nova_tarefa)
             database.session.commit()
-            return redirect(url_for('perfilgerente'))
-        return render_template("perfilgerente.html", form=form, tarefa=tarefa)
+            return redirect(url_for('tarefas'))
+        return render_template("tarefas.html", form=form, tarefa=tarefa)
     else:
-        return render_template("perfilgerente.html", form=None, tarefa=tarefa)
+        return render_template("tarefas.html", form=None, tarefa=tarefa)
 
-
-
-@app.route("/perfilatendente", methods=["GET", "POST"])
+@app.route("/funcionarios", methods=["GET", "POST"])
 @login_required
 def perfilatendente():
     # consulta para obter todos os usuários
@@ -79,14 +77,13 @@ def perfilatendente():
             or_(Usuario.username.like(termo_pesquisa), Usuario.email.like(termo_pesquisa))
         ).all()
 
-    return render_template("perfilatendente.html", usuarios=usuarios)
-
+    return render_template("funcionarios.html", usuarios=usuarios)
 
 @app.route("/perfilfuncionario")
 @login_required
 def perfilfuncionario():
-    return render_template("perfilfuncionario.html")
-
+    return render_template('telaHome.html')
+    
 @app.route("/logout")
 @login_required
 def logout():
@@ -97,7 +94,6 @@ def logout():
 @login_required
 def telaHome():
     return render_template('telaHome.html')
-
 
 @app.route("/mudar_estado/<int:tarefa_id>/<int:novo_estado>")
 @login_required

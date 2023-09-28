@@ -33,7 +33,7 @@
       {% if current_user.cargo == 'gerente' %}
         <div class="head-card">
             <h1>Tarefas</h1>
-            <a class="btn-a" href="/perfilgerente">acessar</a>
+            <a class="btn-a" href="/tarefas">acessar</a>
         </div>
         <div class="head-card">
             <h1>Reservas</h1>
@@ -41,13 +41,13 @@
         </div>
         <div class="head-card">
             <h1>Funcinários</h1>
-            <a class="btn-a" href="/perfilatendente">acessar</a>
+            <a class="btn-a" href="/funcionarios">acessar</a>
         </div>
 
       {% elif current_user.cargo == 'atendente' %}
         <div class="head-card">
             <h1>Tarefas</h1>
-            <a class="btn-a" href="/perfilgerente">acessar</a>
+            <a class="btn-a" href="/tarefas">acessar</a>
         </div>
         <div class="head-card">
             <h1>Reservas</h1>
@@ -57,7 +57,7 @@
       {% elif current_user.cargo == 'funcionario' %}
         <div class="head-card">
             <h1>Tarefas</h1>
-            <a class="btn-a" href="/perfilgerente">acessar</a>
+            <a class="btn-a" href="/tarefas">acessar</a>
         </div>
       {% endif %}
     </div>
