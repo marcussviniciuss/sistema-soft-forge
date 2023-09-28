@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, request, flash
+from flask import render_template, url_for, redirect, request
 from hms_softforge import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
 from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa
