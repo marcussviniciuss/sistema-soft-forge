@@ -30,6 +30,12 @@
                         {{form.email.label(class="focus-input-form")}}
                         {{form.email(class="form-input")}}
                     </div>
+                    
+                    {% if form.email.errors %}
+                        {% for erro in form.email.errors %}
+                            <span style="color: red">{{erro}}</span>
+                        {% endfor %}
+                    {% endif %}
 
                     <br>
 
@@ -37,6 +43,13 @@
                         {{form.senha.label(class="focus-input-form")}}
                         {{form.senha(class="form-input")}}
                     </div>
+
+                    {% if form.senha.errors %}
+                        {% for erro in form.senha.errors %}
+                            <span style="color: red">{{erro}}</span>
+                        {% endfor %}
+                    {% endif %}
+
                     <br>
 
                     <div class="container-form-buttom">

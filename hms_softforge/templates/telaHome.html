@@ -25,43 +25,57 @@
         <h1 class="title-h1">Bem-vindo a Home!</h1>
       </div>
       <div class="sair">
-        <a href="{{ url_for('logout') }}">logout</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
       </div>
     </div>
 
     <div class="head">
       {% if current_user.cargo == 'gerente' %}
         <div class="head-card">
-            <h1>Tarefas</h1>
-            <a class="btn-a" href="/tarefas">acessar</a>
+          <div class="is-card-box">
+          <div class="card-title">Tarefas</div>
+          <a class="btn-a" href="/tarefas">Acessar</a>
+          </div>
         </div>
         <div class="head-card">
-            <h1>Reservas</h1>
-            <a class="btn-a" href="/reservas">acessar</a>
+          <div class="is-card-box">
+            <div class="card-title">Reservas</div>
+            <a class="btn-a" href="/reservas">Acessar</a>
+          </div>
         </div>
         <div class="head-card">
-            <h1>Funcinários</h1>
-            <a class="btn-a" href="/funcionarios">acessar</a>
+          <div class="is-card-box">
+            <div class="card-title">Funcionários</div>
+            <a class="btn-a" href="/funcionarios">Acessar</a>
+          </div>
         </div>
         <div class="head-card">
-          <h1>Cadastrar funcionário</h1>
-          <a class="btn-a" href="/criarconta">acessar</a>
-      </div>
+          <div class="is-card-box">
+            <div class="card-title">Cadastrar funcionário</div>
+            <a class="btn-a" href="/criarconta">Acessar</a>
+          </div>
+        </div>
 
       {% elif current_user.cargo == 'atendente' %}
         <div class="head-card">
-            <h1>Tarefas</h1>
-            <a class="btn-a" href="/tarefas">acessar</a>
+          <div class="is-card-box">
+            <div class="card-title">Tarefas</div>
+            <a class="btn-a" href="/tarefas">Acessar</a>
+          </div>
         </div>
         <div class="head-card">
-            <h1>Reservas</h1>
-            <a class="btn-a" href="/reservas">acessar</a>
+          <div class="is-card-box">
+            <div class="card-title">Reservas</div>
+            <a class="btn-a" href="/reservas">Acessar</a>
+          </div>
         </div>
 
       {% elif current_user.cargo == 'funcionario' %}
         <div class="head-card">
-            <h1>Tarefas</h1>
-            <a class="btn-a" href="/tarefas">acessar</a>
+          <div class="is-card-box">
+            <div class="card-title">Tarefas</div>
+            <a class="btn-a" href="/tarefas">Acessar</a>
+          </div>
         </div>
       {% endif %}
     </div>

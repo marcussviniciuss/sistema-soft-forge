@@ -5,56 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMS - Tarefas</title>
     <link rel="shortcut icon" href="../static/imagens/soft_forge_logo" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/styleTarefas.css" />
 </head>
 <body>
     <!-- Quartos
     Funcionarios
     Tarefas -->
-    <h1>Atividades</h1>
-    <table border="1">
-        <tr>
-            <td>Tarefa</td>
-            <td>Data de Criação</td>
-            <td>Estado</td>
-            <td>Data de Conclusão</td>
-            <td>Concluída por</td>
-            <td>Status</td>
-            <td>Ação</td>
-        </tr>
-    
-        {% for atividade in tarefa %}
-        <tr>
-            <td>{{atividade.tarefa}}</td>
-            <td>{{atividade.data.strftime('%d-%m-%Y - %H:%M:%S')}}</td>
-            <td>{{'Concluída' if atividade.estado else 'Pendente'}}</td>
-            <td>{{atividade.realizada_em.strftime("%d-%m-%Y - %H:%M:%S") if atividade.realizada_em else '-'}}</td>
-            <td>{{atividade.concluido_por if atividade.realizada_em else '-'}}</td>
-            <td>
-                {% if atividade.estado %}
-                    <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=0) }}">✅</a>
-                {% else %}
-                    <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=1) }}">❌</a>
+    <img src="../static/imagens/soft_forge_logo.png"
+                alt="Home"
+                width="80"
+                height="80"
+                class="img-logo"
+            />
+    <div class="main-container">
+        <a class="btn-back" href="telaHome">Voltar</a>
+        
+
+        <div class="content-container">
+            
+            <div class="title-box">
+                <h1>Atividades</h1>
+            </div>
+            <div class="content-box">
+                <table border="1" class="table">
+                    <tr>
+                        <td>Tarefa</td>
+                        <td>Data de Criação</td>
+                        <td>Estado</td>
+                        <td>Data de Conclusão</td>
+                        <td>Concluída por</td>
+                        <td>Status</td>
+                        <td>Ação</td>
+                    </tr>
+                
+                    {% for atividade in tarefa %}
+                    <tr>
+                        <td>{{atividade.tarefa}}</td>
+                        <td>{{atividade.data.strftime('%d-%m-%Y - %H:%M:%S')}}</td>
+                        <td>{{'Concluída' if atividade.estado else 'Pendente'}}</td>
+                        <td>{{atividade.realizada_em.strftime("%d-%m-%Y - %H:%M:%S") if atividade.realizada_em else '-'}}</td>
+                        <td>{{atividade.concluido_por if atividade.realizada_em else '-'}}</td>
+                        <td>
+                            {% if atividade.estado %}
+                                <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=0) }}">✅</a>
+                            {% else %}
+                                <a href="{{ url_for('mudar_estado', tarefa_id=atividade.id, novo_estado=1) }}">❌</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('excluir_tarefa', tarefa_id=atividade.id) }}">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            
+                <br><br>
+            
+                {% if form %} 
+                    <form method="POST">
+                    {{form.tarefa.label()}}
+                    {{form.tarefa()}}
+            
+                    {{form.botao_confirmacao()}}
+                    </form>
                 {% endif %}
-            </td>
-            <td>
-                <a href="{{ url_for('excluir_tarefa', tarefa_id=atividade.id) }}">Excluir</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <br><br>
-
-    {% if form %} 
-        <form method="POST">
-        {{form.tarefa.label()}}
-        {{form.tarefa()}}
-
-        {{form.botao_confirmacao()}}
-        </form>
-    {% endif %}
-
-    <a href="telaHome">Voltar</a>
+            
+            </div>
+            
+        </div>
+        
+        
+    </div>
+    
 
 </body>
 </html>
