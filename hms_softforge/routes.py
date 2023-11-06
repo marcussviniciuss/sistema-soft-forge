@@ -1,8 +1,8 @@
 from flask import render_template, url_for, redirect, request
 from hms_softforge import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
-from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa
-from hms_softforge.models import Usuario, Tarefa
+from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa, FormCriarQuarto, FormReservarQuarto
+from hms_softforge.models import Usuario, Tarefa, Quarto
 from datetime import datetime
 from sqlalchemy import or_
 
@@ -80,10 +80,30 @@ def funcionarios():
 
     return render_template("funcionarios.html", usuarios=usuarios)
 
-@app.route("/reservas", methods=["GET", "POST"])
+@app.route("/reservas", methods=["GET", "POST", "PATCH"])
 @login_required
 def reservas():
-    return render_template("reservas.html")
+    form_quarto = FormCriarQuarto()
+    tabela_quartos = Quarto.query.all()
+    form_reserva = FormReservarQuarto()
+    if form_quarto.is_submitted():
+        # novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
+        # database.session.add(novo_quarto)
+        # database.session.commit()
+        # return redirect(url_for('reservas'))
+        print("banana")
+        print("banana")
+        print("banana")
+    return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
+
+@app.route("/reservar_quarto", methods=["PATCH", "GET"])
+def reservar_quarto():
+    form_reserva = FormReservarQuarto()
+    if form_reserva.is_submitted():
+        print("pera")
+        print("pera")
+        print("pera")
+    return redirect(url_for("reservas"))
     
 @app.route("/logout")
 @login_required
@@ -100,7 +120,6 @@ def telaHome():
 @login_required
 def mudar_estado(tarefa_id, novo_estado):
     tarefa = Tarefa.query.get_or_404(tarefa_id)
-    
     if not tarefa.estado:
         tarefa.estado = bool(novo_estado)
         tarefa.concluido_por = current_user.username

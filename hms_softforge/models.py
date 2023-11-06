@@ -22,3 +22,12 @@ class Tarefa(database.Model):
     concluido_por = database.Column(database.String, nullable=True) 
     realizada_em = database.Column(database.DateTime, nullable=True)    
     
+class Quarto(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    quarto = database.Column(database.Integer, nullable=False, unique=True)
+    hospede = database.Column(database.String)
+    check_in = database.Column(database.DateTime, default=lambda: datetime.now())
+    check_out = database.Column(database.DateTime)
+    detalhes = database.Column(database.String)
+    status = database.Column(database.Boolean, nullable=False, default=False)
+    
