@@ -80,12 +80,6 @@ def funcionarios():
 
     return render_template("funcionarios.html", usuarios=usuarios)
 
-
-
-
-
-
-
 @app.route("/reservas", methods=["GET", "POST", "PATCH"])
 @login_required
 def reservas():
@@ -175,13 +169,6 @@ def excluir_quarto(quarto_id):
         database.session.delete(quarto)
         database.session.commit()
     return redirect(url_for('reservas'))
-
-
-
-
-
-
-
 
 @app.route("/logout")
 @login_required
