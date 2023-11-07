@@ -22,24 +22,29 @@
         </form> 
         <tr>
             <td>Id</td>
-            <td>Quartos</td>
+            <td>Nº Quarto</td>
             <td>Hospede</td>
             <td>Check-in</td>
             <td>Check-out</td>
             <td>Detalhes</td>
             <td>Status</td>
-            <td>Excluir Info</td>  <!-- Nova coluna para excluir informações -->
+            <td>Excluir Reserva</td>
+            <td>Ações</td>
         </tr>
         {% for quarto in tabela_quartos %}
             <tr>
                 <td>{{ quarto.id }}</td>
                 <td>{{ quarto.quarto }}</td>
                 <td>{{ quarto.hospede or "-" }}</td>
-                <td>{{ quarto.check_in.strftime("%Y-%m-%d %H:%M:%S") if quarto.check_in else "-" }}</td>
-                <td>{{ quarto.check_out.strftime("%Y-%m-%d %H:%M:%S") if quarto.check_out else "-" }}</td>
+                <td>{{ quarto.check_in.strftime("%d/%m/%Y %H:%M") if quarto.check_in else "-" }}</td>
+                <td>{{ quarto.check_out.strftime("%d/%m/%Y %H:%M") if quarto.check_out else "-" }}</td>
                 <td>{{ quarto.detalhes }}</td>
                 <td>{{ "Reservado" if quarto.status else "Liberado" }}</td>
                 <td><a href="{{ url_for('excluir_info', quarto_id=quarto.id) }}">Excluir</a></td>
+                <td>
+                    <a href="{{ url_for('editar_quarto', quarto_id=quarto.id) }}">Editar</a>
+                    <a href="{{ url_for('excluir_quarto', quarto_id=quarto.id) }}">Excluir</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

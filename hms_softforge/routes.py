@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, request
 from hms_softforge import app, database, bcrypt
 from flask_login import login_required, login_user, logout_user, current_user
-from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa, FormCriarQuarto, FormReservarQuarto
+from hms_softforge.forms import FormLogin, FormCriarConta, FormNovaTarefa, FormCriarQuarto, FormReservarQuarto, FormQuarto
 from hms_softforge.models import Usuario, Tarefa, Quarto
 from datetime import datetime
 from sqlalchemy import or_
@@ -91,7 +91,7 @@ def funcionarios():
 def reservas():
     form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
-    tabela_quartos = Quarto.query.all()
+    tabela_quartos = Quarto.query.order_by(Quarto.quarto).all()
     return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
 
 
@@ -125,7 +125,7 @@ def reservar_quarto():
                 quarto.status = True
                 quarto.hospede = form_reserva.hospede.data
                 quarto.check_in = datetime.now()
-                quarto.check_out = datetime.combine(form_reserva.check_out.data, form_reserva.check_out_time.data)  # Combine a data e a hora
+                quarto.check_out = datetime.combine(form_reserva.check_out.data, form_reserva.check_out_time.data)
                 database.session.commit()
 
         return redirect(url_for('reservas'))
@@ -142,6 +142,40 @@ def excluir_info(quarto_id):
         quarto.status = False 
         database.session.commit()
     return redirect(url_for('reservas'))
+
+
+from datetime import datetime
+
+@app.route("/editar_quarto/<int:quarto_id>", methods=["GET", "POST"])
+def editar_quarto(quarto_id):
+    quarto = Quarto.query.get(quarto_id)
+    
+    if not quarto:
+        return redirect(url_for('reservas'))
+    
+    form = FormQuarto(obj=quarto)
+    
+    if form.validate_on_submit():
+        quarto.quarto = form.quarto.data
+        quarto.hospede = form.hospede.data
+        quarto.check_out = form.check_out.data
+        quarto.check_out_time = form.check_out_time.data
+        quarto.detalhes = form.detalhes.data
+        database.session.commit()
+        return redirect(url_for('reservas'))
+    return render_template("editar_quarto.html", form=form, quarto=quarto)
+
+
+
+
+@app.route("/excluir_quarto/<int:quarto_id>", methods=["GET"])
+def excluir_quarto(quarto_id):
+    quarto = Quarto.query.get(quarto_id)
+    if quarto:
+        database.session.delete(quarto)
+        database.session.commit()
+    return redirect(url_for('reservas'))
+
 
 
 

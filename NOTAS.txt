@@ -1,7 +1,2 @@
 
-link: https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms
-
-terminar de arrumar os dois formularios da reserva
-
-desgraça
-form_reserva n funciona
+erro ao colocar reservar quarto com o mesmo id
