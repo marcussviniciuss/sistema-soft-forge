@@ -10,6 +10,16 @@
     <h1>Reservas</h1>
 
     <table border="1">
+        <form method="POST" action="{{ url_for('criar_quarto') }}">
+            <strong>Adicionar novo quarto</strong> 
+            <br>
+            {{ form_quarto.csrf_token }}
+            {{ form_quarto.quarto.label() }}
+            {{ form_quarto.quarto() }}
+            {{ form_quarto.detalhes.label() }}
+            {{ form_quarto.detalhes() }}
+            {{ form_quarto.botao_confirmacao }}
+        </form> 
         <tr>
             <td>Id</td>
             <td>Quartos</td>
@@ -18,53 +28,45 @@
             <td>Check-out</td>
             <td>Detalhes</td>
             <td>Status</td>
+            <td>Excluir Info</td>  <!-- Nova coluna para excluir informações -->
         </tr>
-    
         {% for quarto in tabela_quartos %}
-
             <tr>
-                <td>{{quarto.id}}</td>
-                <td>{{quarto.quarto}}</td>
-                <td>{{quarto.hospede}}</td>
-                <td>{{quarto.check_in}}</td>
-                <td>{{quarto.check_out}}</td>
-                <td>{{quarto.detalhes}}</td>
-                <td>{{ "Reservado" if quarto.status == True else "Liberado" }}</td>
+                <td>{{ quarto.id }}</td>
+                <td>{{ quarto.quarto }}</td>
+                <td>{{ quarto.hospede or "-" }}</td>
+                <td>{{ quarto.check_in.strftime("%Y-%m-%d %H:%M:%S") if quarto.check_in else "-" }}</td>
+                <td>{{ quarto.check_out.strftime("%Y-%m-%d %H:%M:%S") if quarto.check_out else "-" }}</td>
+                <td>{{ quarto.detalhes }}</td>
+                <td>{{ "Reservado" if quarto.status else "Liberado" }}</td>
+                <td><a href="{{ url_for('excluir_info', quarto_id=quarto.id) }}">Excluir</a></td>
             </tr>
         {% endfor %}
-
     </table>
-
-<br><br>
-<form method="POST" action=" {{ url_for('criar_quarto') }} ">
-
-    {{ form_quarto.csrf_token }}
-
-    {{ form_quarto.quarto.label() }}
-    {{ form_quarto.quarto() }}
     
-    {{ form_quarto.detalhes.label() }}
-    {{ form_quarto.detalhes() }}
+    <br><br>
+
+    <form method="POST" action="{{ url_for('reservar_quarto') }}">
+        <strong>Reservar quarto</strong> 
+        <br>
+        {{ form_reserva.csrf_token }}
     
-    {{ form_quarto.botao_confirmacao }}
+        {{ form_reserva.id.label }}
+        {{ form_reserva.id }}
+    
+        {{ form_reserva.hospede.label }}
+        {{ form_reserva.hospede }}
+        
+        {{ form_reserva.check_out.label }}
+        {{ form_reserva.check_out }}
+        
+        {{ form_reserva.check_out_time.label }}
+        {{ form_reserva.check_out_time }}
+    
+        {{ form_reserva.botao_confirmacao }}
+    </form>
+    <br><br>
 
-</form>
-<br><br>
-
-<br><br>
- <form method="PATCH" action="{{ url_for('reservar_quarto', id=1) }}">
-
-    {{ form_reserva.csrf_token }}
-
-
-    {{form_reserva.id.label()}}
-    {{form_reserva.id()}}
-
-    {{form_reserva.botao_confirmacao}}
-
-</form>
-<br><br>
-
-<a href="telaHome">Voltar</a>
+    <a href="telaHome">Voltar</a>
 </body>
 </html>

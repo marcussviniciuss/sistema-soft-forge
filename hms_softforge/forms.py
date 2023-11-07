@@ -1,6 +1,6 @@
 #Criar os formularios do site
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, IntegerField 
+from wtforms import StringField, PasswordField, SubmitField, SelectField, IntegerField, DateField, TimeField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
 from hms_softforge.models import Usuario
 
@@ -37,6 +37,8 @@ class FormCriarQuarto(FlaskForm):
     botao_confirmacao = SubmitField("Adicionar quarto")
 
 class FormReservarQuarto(FlaskForm):
-    id = IntegerField("Número do quarto", validators=[DataRequired()])
+    id = IntegerField("ID quarto", validators=[DataRequired()])
     hospede = StringField("Nome do Hospede", validators=[DataRequired()])
+    check_out = DateField("Data de Check-out", validators=[DataRequired()])
+    check_out_time = TimeField("Hora de Check-out", validators=[DataRequired()])  # Adicione um campo de hora
     botao_confirmacao = SubmitField("Reservar quarto")

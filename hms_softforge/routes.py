@@ -92,7 +92,7 @@ def reservas():
     form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
     tabela_quartos = Quarto.query.all()
-    return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
+    return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
 
 
 
@@ -103,32 +103,45 @@ def criar_quarto():
     tabela_quartos = Quarto.query.all()
 
     if form_quarto.is_submitted():
-        # novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
-        # database.session.add(novo_quarto)
-        # database.session.commit()
-        # return redirect(url_for('reservas'))
-        print("banana")
-        print("banana")
-        print("banana")
-    return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
+        novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
+        database.session.add(novo_quarto)
+        database.session.commit()
+        return redirect(url_for('reservas'))
 
-@app.route("/reservar_quarto/<id>", methods=["PATCH", "GET"])
-def reservar_quarto(id):
+    return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
+
+@app.route("/reservar_quarto", methods=["POST"])
+def reservar_quarto():
     form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
     tabela_quartos = Quarto.query.all()
-    if form_reserva.is_submitted():
-        # novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
-        # database.session.add(novo_quarto)
-        # database.session.commit()
-        # return redirect(url_for('reservas'))
-        print("pera")
-        print("pera")
-        print("pera")
-    return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
 
-    
+    if form_reserva.validate_on_submit():
+        quarto_id = form_reserva.id.data
+        quarto = Quarto.query.get(quarto_id)
 
+        if quarto:
+            if not quarto.status:
+                quarto.status = True
+                quarto.hospede = form_reserva.hospede.data
+                quarto.check_in = datetime.now()
+                quarto.check_out = datetime.combine(form_reserva.check_out.data, form_reserva.check_out_time.data)  # Combine a data e a hora
+                database.session.commit()
+
+        return redirect(url_for('reservas'))
+
+    return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
+
+@app.route("/excluir_info/<int:quarto_id>", methods=["GET"])
+def excluir_info(quarto_id):
+    quarto = Quarto.query.get(quarto_id)
+    if quarto:
+        quarto.hospede = None
+        quarto.check_in = None
+        quarto.check_out = None
+        quarto.status = False 
+        database.session.commit()
+    return redirect(url_for('reservas'))
 
 
 
