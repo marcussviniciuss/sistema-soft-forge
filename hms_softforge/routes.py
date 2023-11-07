@@ -80,12 +80,28 @@ def funcionarios():
 
     return render_template("funcionarios.html", usuarios=usuarios)
 
+
+
+
+
+
+
 @app.route("/reservas", methods=["GET", "POST", "PATCH"])
 @login_required
 def reservas():
     form_quarto = FormCriarQuarto()
-    tabela_quartos = Quarto.query.all()
     form_reserva = FormReservarQuarto()
+    tabela_quartos = Quarto.query.all()
+    return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
+
+
+
+@app.route("/criar_quarto", methods=["POST", "GET"])
+def criar_quarto():
+    form_quarto = FormCriarQuarto()
+    form_reserva = FormReservarQuarto()
+    tabela_quartos = Quarto.query.all()
+
     if form_quarto.is_submitted():
         # novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
         # database.session.add(novo_quarto)
@@ -96,15 +112,30 @@ def reservas():
         print("banana")
     return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
 
-@app.route("/reservar_quarto", methods=["PATCH", "GET"])
-def reservar_quarto():
+@app.route("/reservar_quarto/<id>", methods=["PATCH", "GET"])
+def reservar_quarto(id):
+    form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
+    tabela_quartos = Quarto.query.all()
     if form_reserva.is_submitted():
+        # novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
+        # database.session.add(novo_quarto)
+        # database.session.commit()
+        # return redirect(url_for('reservas'))
         print("pera")
         print("pera")
         print("pera")
-    return redirect(url_for("reservas"))
+    return render_template("reservas.html", form_quarto = form_quarto, form_reserva = form_reserva, tabela_quartos = tabela_quartos) 
+
     
+
+
+
+
+
+
+
+
 @app.route("/logout")
 @login_required
 def logout():

@@ -36,7 +36,7 @@
     </table>
 
 <br><br>
-<form method="POST">
+<form method="POST" action=" {{ url_for('criar_quarto') }} ">
 
     {{ form_quarto.csrf_token }}
 
@@ -52,14 +52,19 @@
 <br><br>
 
 <br><br>
-<form action="{{ url_for('reservar_quarto') }}" method="PATCH">
+ <form method="PATCH" action="{{ url_for('reservar_quarto', id=1) }}">
 
     {{ form_reserva.csrf_token }}
+
+
+    {{form_reserva.id.label()}}
+    {{form_reserva.id()}}
 
     {{form_reserva.botao_confirmacao}}
 
 </form>
 <br><br>
-    <a href="telaHome">Voltar</a>
+
+<a href="telaHome">Voltar</a>
 </body>
 </html>

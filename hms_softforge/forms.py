@@ -37,5 +37,6 @@ class FormCriarQuarto(FlaskForm):
     botao_confirmacao = SubmitField("Adicionar quarto")
 
 class FormReservarQuarto(FlaskForm):
+    id = IntegerField("Número do quarto", validators=[DataRequired()])
     hospede = StringField("Nome do Hospede", validators=[DataRequired()])
     botao_confirmacao = SubmitField("Reservar quarto")
