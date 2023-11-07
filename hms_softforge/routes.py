@@ -14,11 +14,11 @@ def login():
         if usuario and bcrypt.check_password_hash(usuario.senha, formlogin.senha.data):
             login_user(usuario)
             if usuario.cargo == "gerente":
-                return redirect(url_for("telaHome"))
+                return redirect(url_for("home"))
             if usuario.cargo == "atendente":
-                return redirect(url_for("telaHome"))
+                return redirect(url_for("home"))
             if usuario.cargo == "funcionario":
-                return redirect(url_for("telaHome"))
+                return redirect(url_for("home"))
     return render_template("login.html", form=formlogin)
 
 @app.route("/criarconta", methods=["GET", "POST"])
@@ -34,13 +34,8 @@ def criarconta():
                             cargo = formcriarconta.cargo.data)
             database.session.add(usuario)
             database.session.commit()
-            return redirect(url_for("telaHome"))
+            return redirect(url_for("home"))
     return render_template("criarconta.html", form=formcriarconta)
-
-# @app.route("/perfil/<usuario>")
-# @login_required
-# def perfil(usuario):
-#     return render_template("perfil.html", usuario=usuario)
 
 @app.route("/tarefas", methods=["GET", "POST"])
 @login_required
@@ -87,8 +82,6 @@ def reservas():
     form_reserva = FormReservarQuarto()
     tabela_quartos = Quarto.query.order_by(Quarto.quarto).all()
     return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
-
-
 
 @app.route("/criar_quarto", methods=["POST", "GET"])
 def criar_quarto():
@@ -137,9 +130,6 @@ def excluir_info(quarto_id):
         database.session.commit()
     return redirect(url_for('reservas'))
 
-
-from datetime import datetime
-
 @app.route("/editar_quarto/<int:quarto_id>", methods=["GET", "POST"])
 def editar_quarto(quarto_id):
     quarto = Quarto.query.get(quarto_id)
@@ -159,9 +149,6 @@ def editar_quarto(quarto_id):
         return redirect(url_for('reservas'))
     return render_template("editar_quarto.html", form=form, quarto=quarto)
 
-
-
-
 @app.route("/excluir_quarto/<int:quarto_id>", methods=["GET"])
 def excluir_quarto(quarto_id):
     quarto = Quarto.query.get(quarto_id)
@@ -176,10 +163,10 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
-@app.route("/telaHome")
+@app.route("/home")
 @login_required
-def telaHome():
-    return render_template('telaHome.html')
+def home():
+    return render_template('home.html')
 
 @app.route("/mudar_estado/<int:tarefa_id>/<int:novo_estado>")
 @login_required
