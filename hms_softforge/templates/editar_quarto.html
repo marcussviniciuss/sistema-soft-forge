@@ -19,17 +19,12 @@
             {{ form.check_out }}
 
             {{ form.check_out_time.label }}
-            {% if form.check_out_time.data %}
-                {{ form.check_out_time(value=form.check_out_time.data.strftime('%H:%M')) }}
-            {% else %}
-                {{ form.check_out_time }}
-            {% endif %}
+            {{ form.check_out_time.strftime('%H:%M')}}
             
             {{ form.detalhes.label }}
             {{ form.detalhes }}
             
             {{ form.botao_confirmacao }}
-        </form>
-        <a href="home">Voltar</a>
+        </form> 
 </body>
 </html>

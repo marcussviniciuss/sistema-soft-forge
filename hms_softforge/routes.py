@@ -84,10 +84,11 @@ def reservas():
     return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
 
 @app.route("/criar_quarto", methods=["POST", "GET"])
+@login_required
 def criar_quarto():
     form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
-    tabela_quartos = Quarto.query.all()
+    tabela_quartos = Quarto.query.order_by(Quarto.quarto).all()
 
     if form_quarto.is_submitted():
         novo_quarto = Quarto(quarto=form_quarto.quarto.data, detalhes=form_quarto.detalhes.data)
@@ -98,6 +99,7 @@ def criar_quarto():
     return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
 
 @app.route("/reservar_quarto", methods=["POST"])
+@login_required
 def reservar_quarto():
     form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
@@ -120,6 +122,7 @@ def reservar_quarto():
     return render_template("reservas.html", form_quarto=form_quarto, form_reserva=form_reserva, tabela_quartos=tabela_quartos)
 
 @app.route("/excluir_info/<int:quarto_id>", methods=["GET"])
+@login_required
 def excluir_info(quarto_id):
     quarto = Quarto.query.get(quarto_id)
     if quarto:
@@ -131,6 +134,7 @@ def excluir_info(quarto_id):
     return redirect(url_for('reservas'))
 
 @app.route("/editar_quarto/<int:quarto_id>", methods=["GET", "POST"])
+@login_required
 def editar_quarto(quarto_id):
     quarto = Quarto.query.get(quarto_id)
     
@@ -150,6 +154,7 @@ def editar_quarto(quarto_id):
     return render_template("editar_quarto.html", form=form, quarto=quarto)
 
 @app.route("/excluir_quarto/<int:quarto_id>", methods=["GET"])
+@login_required
 def excluir_quarto(quarto_id):
     quarto = Quarto.query.get(quarto_id)
     if quarto:

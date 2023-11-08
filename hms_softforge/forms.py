@@ -40,7 +40,7 @@ class FormReservarQuarto(FlaskForm):
     id = IntegerField("ID quarto", validators=[DataRequired()])
     hospede = StringField("Nome do Hospede", validators=[DataRequired()])
     check_out = DateField("Data de Check-out", validators=[DataRequired()])
-    check_out_time = TimeField("Hora de Check-out", validators=[DataRequired()])  # Adicione um campo de hora
+    check_out_time = TimeField("Hora de Check-out", validators=[DataRequired()]) 
     botao_confirmacao = SubmitField("Reservar quarto")
 
 class FormQuarto(FlaskForm):
