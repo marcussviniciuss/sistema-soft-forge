@@ -174,10 +174,8 @@ def filtrar_quartos():
     else:
         quartos_filtrados = Quarto.query.order_by(Quarto.quarto).all()
 
-    form_quarto = FormCriarQuarto()  # Crie uma instância de FormCriarQuarto
-    form_reserva = FormReservarQuarto()  # Crie uma instância de FormReservarQuarto
-
-    # Renderize a página novamente com os quartos filtrados
+    form_quarto = FormCriarQuarto()
+    form_reserva = FormReservarQuarto() 
     return render_template("reservas.html", tabela_quartos=quartos_filtrados, form_quarto=form_quarto, form_reserva=form_reserva)
 
 
