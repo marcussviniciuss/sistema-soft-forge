@@ -103,7 +103,7 @@ def criar_quarto():
 def reservar_quarto():
     form_quarto = FormCriarQuarto()
     form_reserva = FormReservarQuarto()
-    tabela_quartos = Quarto.query.all()
+    tabela_quartos = Quarto.query.order_by(Quarto.quarto).all()
 
     if form_reserva.validate_on_submit():
         quarto_id = form_reserva.id.data
@@ -161,6 +161,26 @@ def excluir_quarto(quarto_id):
         database.session.delete(quarto)
         database.session.commit()
     return redirect(url_for('reservas'))
+
+
+@app.route("/filtrar_quartos", methods=["POST"])
+@login_required
+def filtrar_quartos():
+    status = request.form.get("status")
+    if status == "reservado":
+        quartos_filtrados = Quarto.query.filter_by(status=True).all()
+    elif status == "liberado":
+        quartos_filtrados = Quarto.query.filter_by(status=False).all()
+    else:
+        quartos_filtrados = Quarto.query.order_by(Quarto.quarto).all()
+
+    form_quarto = FormCriarQuarto()  # Crie uma instância de FormCriarQuarto
+    form_reserva = FormReservarQuarto()  # Crie uma instância de FormReservarQuarto
+
+    # Renderize a página novamente com os quartos filtrados
+    return render_template("reservas.html", tabela_quartos=quartos_filtrados, form_quarto=form_quarto, form_reserva=form_reserva)
+
+
 
 @app.route("/logout")
 @login_required

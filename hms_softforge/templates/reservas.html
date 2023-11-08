@@ -20,6 +20,14 @@
             {{ form_quarto.detalhes() }}
             {{ form_quarto.botao_confirmacao }}
         </form> 
+        <br><br>
+        <form method="POST" action="{{ url_for('filtrar_quartos') }}">
+            <strong>Filtrar por Status</strong>
+            <br>
+            <button type="submit" name="status" value="reservado">Reservados</button>
+            <button type="submit" name="status" value="liberado">Liberados</button>
+            <button type="submit" name="status" value="reservas">Todos</button>
+        </form>
         <tr>
             <td>Id</td>
             <td>Nº Quarto</td>
