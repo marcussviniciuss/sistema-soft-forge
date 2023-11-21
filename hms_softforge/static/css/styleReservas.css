@@ -11,9 +11,27 @@ body{
     color: white;
 }
 
+.title-secondary {
+    font-size: 20px;
+}
+
+.add-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 40px;
+}
+
+.box {
+}
+
 .main-container {
     position: relative;
     text-align: center;
+}
+
+.form-div-box {
+    padding-bottom: 20px;
 }
 
 .btn-back {
@@ -29,17 +47,6 @@ body{
     color: black;
 }
 
-.content-box {
-    text-align: center;
-    display: inline-block;
-    margin-top: 50px;
-}
-
-.table {
-    background-color: white;
-    color: black;
-}
-
 .btn-confirm {
     text-decoration: none;
     font-size: 20px;
@@ -47,6 +54,18 @@ body{
     background-color: rgb(47, 255, 0);
     border-radius: 8px;
     padding: 8px;
+    color: black;
+}
+
+.content-box {
+    text-align: center;
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.table {
+    background-color: white;
+    margin: 30px auto;
     color: black;
 }
 

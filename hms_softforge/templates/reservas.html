@@ -5,81 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMS - Reservas</title>
     <link rel="shortcut icon" href="../static/img/soft_forge_logo" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/styleReservas.css" />
 </head>
 <body>
-    <h1>Reservas</h1>
+    <div class="main-container">
+        <a href="home" class="btn-back">Voltar</a>
+        <div class="content-container">
+            <div class="title-box">
+                <h1>Reservas</h1>
+            </div>
+            <div class="content-box">
+                <table border="1" class="table">
+                    <form method="POST" action="{{ url_for('criar_quarto') }}">
+                        <div class="form-div-box">
+                            <strong class="title-secondary">Adicionar novo quarto</strong>
+                        </div>
+                        <br>
+                        <div class="add-form">
+                            <div class="box">
+                                {{ form_quarto.csrf_token }}
+                                {{ form_quarto.quarto.label() }}
+                                {{ form_quarto.quarto() }}
 
-    <table border="1">
-        <form method="POST" action="{{ url_for('criar_quarto') }}">
-            <strong>Adicionar novo quarto</strong> 
-            <br>
-            {{ form_quarto.csrf_token }}
-            {{ form_quarto.quarto.label() }}
-            {{ form_quarto.quarto() }}
-            {{ form_quarto.detalhes.label() }}
-            {{ form_quarto.detalhes() }}
-            {{ form_quarto.botao_confirmacao }}
-        </form> 
-        <br><br>
-        <form method="POST" action="{{ url_for('filtrar_quartos') }}">
-            <strong>Filtrar por Status</strong>
-            <br>
-            <button type="submit" name="status" value="reservado">Reservados</button>
-            <button type="submit" name="status" value="liberado">Liberados</button>
-            <button type="submit" name="status" value="reservas">Todos</button>
-        </form>
-        <tr>
-            <td>Id</td>
-            <td>Nº Quarto</td>
-            <td>Hospede</td>
-            <td>Check-in</td>
-            <td>Check-out</td>
-            <td>Detalhes</td>
-            <td>Status</td>
-            <td>Excluir Reserva</td>
-            <td>Ações</td>
-        </tr>
-        {% for quarto in tabela_quartos %}
-            <tr>
-                <td>{{ quarto.id }}</td>
-                <td>{{ quarto.quarto }}</td>
-                <td>{{ quarto.hospede or "-" }}</td>
-                <td>{{ quarto.check_in.strftime("%d/%m/%Y %H:%M") if quarto.check_in else "-" }}</td>
-                <td>{{ quarto.check_out.strftime("%d/%m/%Y %H:%M") if quarto.check_out else "-" }}</td>
-                <td>{{ quarto.detalhes }}</td>
-                <td>{{ "Reservado" if quarto.status else "Liberado" }}</td>
-                <td><a href="{{ url_for('excluir_info', quarto_id=quarto.id) }}">Excluir</a></td>
-                <td>
-                    <a href="{{ url_for('editar_quarto', quarto_id=quarto.id) }}">Editar</a>
-                    <a href="{{ url_for('excluir_quarto', quarto_id=quarto.id) }}">Excluir</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    
-    <br><br>
+                            </div>
+                            <div class="box">
+                                {{ form_quarto.detalhes.label() }}
+                                {{ form_quarto.detalhes() }}
+                                {{ form_quarto.botao_confirmacao }}
+                            </div>
+                        </div>
+                    </form> 
+                    <br><br>
+                    <form method="POST" action="{{ url_for('filtrar_quartos') }}">
+                        <div class="form-div-box">
+                            <strong class="title-secondary">Filtrar por Status</strong>
+                        </div>
+                        <br>
+                        <div class="add-form">
+                            <button class="btn-confirm" type="submit" name="status" value="reservado">Reservados</button>
+                            <button class="btn-confirm" type="submit" name="status" value="liberado">Liberados</button>
+                            <button class="btn-confirm" type="submit" name="status" value="reservas">Todos</button>
+                            
+                        </div>
+                    </form>
+                    <tr>
+                        <td>Id</td>
+                        <td>Nº Quarto</td>
+                        <td>Hospede</td>
+                        <td>Check-in</td>
+                        <td>Check-out</td>
+                        <td>Detalhes</td>
+                        <td>Status</td>
+                        <td>Excluir Reserva</td>
+                        <td>Ações</td>
+                    </tr>
+                    {% for quarto in tabela_quartos %}
+                        <tr>
+                            <td>{{ quarto.id }}</td>
+                            <td>{{ quarto.quarto }}</td>
+                            <td>{{ quarto.hospede or "-" }}</td>
+                            <td>{{ quarto.check_in.strftime("%d/%m/%Y %H:%M") if quarto.check_in else "-" }}</td>
+                            <td>{{ quarto.check_out.strftime("%d/%m/%Y %H:%M") if quarto.check_out else "-" }}</td>
+                            <td>{{ quarto.detalhes }}</td>
+                            <td>{{ "Reservado" if quarto.status else "Liberado" }}</td>
+                            <td><a href="{{ url_for('excluir_info', quarto_id=quarto.id) }}">Excluir</a></td>
+                            <td>
+                                <a href="{{ url_for('editar_quarto', quarto_id=quarto.id) }}">Editar</a>
+                                <a href="{{ url_for('excluir_quarto', quarto_id=quarto.id) }}">Excluir</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                
+                <br><br>
+            
+                <form method="POST" action="{{ url_for('reservar_quarto') }}">
+                    <div class="form-div-box">
+                        <strong class="title-secondary">Reservar quarto</strong> 
+                    </div>
+                    <br>
+                    <div class="add-form">
+                        {{ form_reserva.csrf_token }}
+                        <div class="box">
+                            {{ form_reserva.id.label }}
+                            {{ form_reserva.id }}
 
-    <form method="POST" action="{{ url_for('reservar_quarto') }}">
-        <strong>Reservar quarto</strong> 
-        <br>
-        {{ form_reserva.csrf_token }}
-    
-        {{ form_reserva.id.label }}
-        {{ form_reserva.id }}
-    
-        {{ form_reserva.hospede.label }}
-        {{ form_reserva.hospede }}
+                        </div>
+                        <div class="box">
+                            {{ form_reserva.hospede.label }}
+                            {{ form_reserva.hospede }}
+                        </div>
+                        <div class="box">
+                            {{ form_reserva.check_out.label }}
+                            {{ form_reserva.check_out }}
+                        </div>
+                        <div class="box">
+                            {{ form_reserva.check_out_time.label }}
+                            {{ form_reserva.check_out_time }}
+                        </div>
+                    
+                        
+                            {{ form_reserva.botao_confirmacao }}
+                        
+
+                    </div>
+                </form>
+                <br><br>
+            </div>
+
+            
+        </div>
         
-        {{ form_reserva.check_out.label }}
-        {{ form_reserva.check_out }}
-        
-        {{ form_reserva.check_out_time.label }}
-        {{ form_reserva.check_out_time }}
+    </div>
     
-        {{ form_reserva.botao_confirmacao }}
-    </form>
-    <br><br>
 
-    <a href="home">Voltar</a>
+    
 </body>
 </html>

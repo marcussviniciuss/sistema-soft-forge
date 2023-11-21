@@ -11,7 +11,7 @@ body{
     /*margin: 0;
     padding: 0;*/
     box-sizing: border-box;
-    background: radial-gradient(circle, rgba(9,92,92,1) 0%, rgba(9,69,121,1) 0%, rgba(0,212,255,1) 100%);
+    background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(48,48,54,1) 35%);
 }
 
 /*caixa principal e alinhamento dos intems*/
