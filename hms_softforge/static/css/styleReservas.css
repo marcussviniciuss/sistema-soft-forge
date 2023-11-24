@@ -46,6 +46,9 @@ body{
     top: 4%;
     color: black;
 }
+.btn-back:hover{
+    filter: brightness(80%)
+}
 
 .btn-confirm {
     text-decoration: none;
@@ -55,6 +58,10 @@ body{
     border-radius: 8px;
     padding: 8px;
     color: black;
+}
+
+.btn-confirm:hover{
+    filter: brightness(80%)
 }
 
 .content-box {

@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="../static/css/styleReservas.css" />
 </head>
 <body>
+    <img src="../static/img/soft_forge_logo"
+                alt="Home"
+                width="80"
+                height="80"
+                class="img-logo"
+            />
     <div class="main-container">
         <a href="home" class="btn-back">Voltar</a>
         <div class="content-container">
@@ -105,7 +111,7 @@
                         </div>
                     
                         
-                            {{ form_reserva.botao_confirmacao }}
+                            {{ form_reserva.botao_confirmacao(class="btn-confirm") }}
                         
 
                     </div>

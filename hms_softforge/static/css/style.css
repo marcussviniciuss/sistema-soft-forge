@@ -1,7 +1,7 @@
 
 /*gradiente do fundo do corpo da página*/
 body{
-    background-color: #095c5c;
+    background-color: rgba(48,48,54,1);
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -67,14 +67,17 @@ footer{
 }
 
 
+.focus-input-form {
+    color: white;
+}
 
-.focus-input-form::before{
+/* .focus-input-form::before{
     font-family:cursive;
     font-size: 16px;
     line-height: 1.1;
     content: attr(placeholder);
     color: rgb(255, 255, 255);
-}
+} */
 
 /*centraliza o botão*/
 .container-form-buttom{
@@ -105,6 +108,19 @@ footer{
 
 .form-login-btn:hover{
     background-color: rgba(232, 58, 255, 0.476);
+}
+
+
+.btn-back {
+    text-decoration: none;
+    font-size: 20px;
+    background-color: rgb(246, 255, 0);
+    border-radius: 8px;
+    padding: 8px;
+    color: black;
+}
+.btn-back:hover{
+    filter: brightness(80%)
 }
 
 .img-left{
