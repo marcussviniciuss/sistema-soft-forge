@@ -8,6 +8,11 @@ Principais Funcionalidades:
   * Controle de Status dos Quartos: Permite o monitoramento e atualização do status dos quartos em tempo real.
 
   * Gerenciamento da Rotina dos Funcionários: Usuários com níveis de acesso mais altos podem organizar tarefas nas rotinas, proporcionando eficiência operacional. Usuários com acesso mais baixo têm a capacidade de consultar a lista de tarefas.
+    
+  * Segurança Avançada:
+     * Senhas Criptografadas: Todas as senhas no sistema são armazenadas de forma segura, utilizando algoritmos avançados de criptografia.
+     * Criação de Novos Usuários: Funcionalidade para criar novos usuários, com a devida segurança na manipulação de credenciais.
+
 
 Tecnologias Utilizadas:
   * Banco de Dados em SQLite: Para armazenamento eficiente e confiável das informações do sistema.
